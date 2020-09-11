@@ -1,0 +1,49 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{% load humanize %}
+{%block content%}
+<h2 class="a">All answers by {{ view.kwargs.username }} ({{ page_obj.paginator.count }}) </h2>
+{% for ans in answers %}
+
+    <div class="jumbotron border">
+        <img class="img-thumbnail" src="{{ ans.answered_by.profile.image.url }}" alt="Card image cap">
+        <h1>{{ ans.question }}</h1>
+      <small class="text-muted">
+        Answered {{ ans.answering_time|naturaltime }} by {{ ans.answered_by }}
+    </small>
+        <hr class="my-4">
+            {{ ans.answer }}
+        <a class="btn btn-outline-primary btn-lg" href="{% url 'answers' ans.question_id %}" role="button">Read more</a>
+        {% if user == ans.answered_by %}
+            <a class="btn btn-outline-primary btn-lg ml-7" href="{% url 'a-update' ans.id %}" role="button">Update</a>
+        {% endif %}
+
+
+    </div>
+
+{% endfor %}
+<div class="container text-center">
+    {% if is_paginated %}
+        <div class="btn-group login rounded"  aria-label="Basic example">
+            {% if page_obj.has_previous %}
+              <a type="button" class="btn glow " href="?page=1">First</a>
+              <a type="button" class="btn glow" href="?page={{page_obj.previous_page_number}}">Prev</a>
+
+
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num%}
+                    <a type="button" class="btn btn-primary" href="?page={{num}}">{{num}}</a>
+                {%elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a type="button" class="btn glow" href="?page={{num}}">{{num}}</a>
+                {% endif %}
+
+            {%endfor%}
+            {% if page_obj.has_next %}
+              <a type="button" class="btn glow" href="?page={{page_obj.next_page_number}}">Next</a>
+              <a type="button" class="btn glow" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+            {% endif %}
+        </div>
+    {% endif%}
+</div>
+{% endblock %}

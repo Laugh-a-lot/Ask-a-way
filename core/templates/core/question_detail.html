@@ -1,0 +1,33 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{% load humanize %}
+{%block content%}
+
+
+<div class="jumbotron border">
+    <img class="img-thumbnail" src="{{ object.asked_by.profile.image.url }}" alt="Card image cap">
+    <h1 class="display-4">{{ object.question }}</h1>
+    <small class="text-muted">
+        Asked {{ object.asked_at|naturaltime }} by {{ object.asked_by }}
+    </small>
+</div>
+
+<h2>Answer now! <span class="badge login"><a href="{% url 'add_answer' object.id %}"> <i class="fas fa-plus fa-1x glow"></i></a></span></h2>
+
+
+<div class="jumbotron border">
+
+   {% for answer in object.answer_set.all %}
+    <img class="img-thumbnail" src="{{ answer.answered_by.profile.image.url }}" alt="Card image cap">
+    <small class="text-muted">
+        Answered {{ answer.answering_time|naturaltime }} by {{ answer.answered_by }}
+    </small>
+    <p>{{ answer.answer }}</p>
+        {% if answer.answered_by == user %}
+            <a href="{% url 'a-update' answer.id %}" ><button class="btn btn-outline-info" >Update</button></a>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}
