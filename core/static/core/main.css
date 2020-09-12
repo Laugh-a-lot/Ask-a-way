@@ -25,13 +25,13 @@ body {
   border-radius: 4px;
 
 }
-.navbar-dark .navbar-nav .nav-link:active {
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:active {
 
   background-image: linear-gradient(to right, #84fab0, #9d00ff 100%);
   border-radius: 4px;
 
 }
-.navbar-dark .navbar-nav .nav-link:active-link {
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:active-link {
 
   background-image: linear-gradient(to right, #84fab0, #9d00ff 100%);
   border-radius: 4px;
@@ -49,7 +49,11 @@ body {
 .img-thumbnail{
     width:20% ;
     min-width:45px ;
-    max-width:100px ;
+    max-width:60px ;
+}
+
+.answerview{
+    display: flex-row;
 }
 .display-4{
     display: inline;
@@ -195,4 +199,13 @@ body {
 .float-li:after
 {
     background: linear-gradient(45deg, #89ff00, #00bcd4);
+}
+
+.hr-home{
+     box-shadow:  0 0 4px #000;
+}
+
+.hr-answers{
+    box-shadow: 5px 5px 8px #07f4ff;
+    border-color: #07f4ff;
 }

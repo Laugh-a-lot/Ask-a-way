@@ -11,38 +11,40 @@
 
 {% for que in questions %}
 
-<div class="jumbotron border">
-    <h1>{{ que.question }}</h1>
-    
-    <img class="img-thumbnail" src="{{ que.answer_set.latest.answered_by.profile.image.url }}" alt="Card image cap">
+    <div class="jumbotron border">
+        <h1>{{ que.question }}</h1>
+        <small class="text-muted">
+            Asked {{ que.asked_at|naturaltime }} by {{ que.asked_by }}
+        </small>
+        <h5><a href="{% url 'add_answer' que.id %}">Answer this question now! </a></h5>
+        <hr class="my-4 hr-home">
+        <div class="answerview">
 
-    <small class="text-muted">
-        Asked {{ que.asked_at|naturaltime }} by
-    </small>
+
+            {% if que.answer_set.count != 0 %}
+            <img class="img-thumbnail" src="{{ que.answer_set.latest.answered_by.profile.image.url }}" alt="Card image cap">
+
+            <small class="text-muted">Answered {{ que.answer_set.latest.answering_time|naturaltime }} by
+
+                <a href="{% url 'user-answers' que.answer_set.latest.answered_by.username %}">
+                    {{ que.answer_set.latest.answered_by.username }}</a>
+
+            </small>
+
+            <p>{{ que.answer_set.latest.answer|linebreaks|truncatewords:30 }}  </p><small class="text-muted"><a href="{% url 'answers' que.id %}" role="button">Read
+                more</a></small>
 
 
-    <h5><a href="{% url 'add_answer' que.id %}">Answer this question now! </a></h5>
-    <hr class="my-4">
-    {% if que.answer_set.count != 0 %}
-    <small class="text-muted">Answered {{ que.answer_set.latest.answering_time|naturaltime }} by
+        </div>
+        {% else %}
+        <small class="text-muted">No answers yet
 
-        <a href="{% url 'user-answers' que.answer_set.latest.answered_by.username %}">{{
-            que.answer_set.latest.answered_by }}</a>
+            <a href="{% url 'add_answer' que.id %}">Answer now</a>
 
-    </small>
-
-    <p>{{ que.answer_set.latest.answer }}</p>
-
-    <a class="btn btn-outline-primary btn-lg" href="{% url 'answers' que.id %}" role="button">Read more</a>
-
-    {% else %}
-    <small class="text-muted">No answers yet
-
-        <a href="{% url 'add_answer' que.id %}">Answer now</a>
-
-    </small>
-    {% endif %}
-</div>
+        </small>
+        </div>
+        {% endif %}
+    </div>
 
 {% endfor %}
 

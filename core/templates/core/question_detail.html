@@ -12,20 +12,29 @@
     </small>
 </div>
 
-<h2>Answer now! <span class="badge login"><a href="{% url 'add_answer' object.id %}"> <i class="fas fa-plus fa-1x glow"></i></a></span></h2>
+<h2>Answer now! <span class="badge login"><a href="{% url 'add_answer' object.id %}"> <i
+        class="fas fa-plus fa-1x glow"></i></a></span></h2>
 
 
 <div class="jumbotron border">
 
-   {% for answer in object.answer_set.all %}
+    {% for answer in object.answer_set.all %}
+
     <img class="img-thumbnail" src="{{ answer.answered_by.profile.image.url }}" alt="Card image cap">
-    <small class="text-muted">
-        Answered {{ answer.answering_time|naturaltime }} by {{ answer.answered_by }}
+
+    <small class="text-muted">Answered {{ answer.answering_time|naturaltime }} by {{ answer.answered_by }}
+
+
     </small>
-    <p>{{ answer.answer }}</p>
-        {% if answer.answered_by == user %}
-            <a href="{% url 'a-update' answer.id %}" ><button class="btn btn-outline-info" >Update</button></a>
-        {% endif %}
+
+    <p>{{ answer.answer|linebreaks }} </p>
+
+    {% if answer.answered_by == user %}
+    <a href="{% url 'a-update' answer.id %}">
+        <button class="btn btn-outline-info">Update</button>
+    </a>
+    {% endif %}
+    <hr class="my-4 hr-answers">
     {% endfor %}
 </div>
 
