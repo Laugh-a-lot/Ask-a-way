@@ -2,6 +2,7 @@ from django.db.models.signals import post_save, pre_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from .models import Profile
+from PIL import Image
 
 
 @receiver(post_save, sender=User)
@@ -13,21 +14,15 @@ def create_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()
+    pro = Profile.objects.filter(user=instance).first()
+
+    if pro.gender == 'Male':
+        pro.image = 'default.jpg'
+        pro.save()
+    elif pro.gender == 'Female':
+        pro.image = 'female.jpg'
+        pro.save()
 
 
-def set_avatar(instance):
-    avatar = instance.image
-    gender = instance.gender
-    if gender == 'Male':
-        avatar = 'default.jpg'
-    else:
-        avatar = 'female.png'
-    return avatar
 
 
-def post_save_avatar(sender, instance, *args, **kwargs):
-    if not instance.image:
-        instance.image = set_avatar(instance)
-
-
-pre_save.connect(post_save_avatar, sender=Profile)

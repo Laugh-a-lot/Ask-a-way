@@ -5,7 +5,7 @@ from django_currentuser.middleware import (
 from django.db import models
 from django.utils import timezone
 from django_currentuser.db.models import CurrentUserField
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
 from django.urls import reverse
 
 
@@ -38,3 +38,5 @@ class Answer(models.Model):
         get_latest_by = ['answering_time']
 
 
+class UserProfile(AbstractBaseUser):
+    email = models.EmailField(unique=True)

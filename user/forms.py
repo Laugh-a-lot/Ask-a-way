@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import DateInput
 from .models import Profile
+from core.models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 

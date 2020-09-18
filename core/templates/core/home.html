@@ -48,9 +48,15 @@
 
 {% endfor %}
 
-
 <div class="container text-center">
+     {% if page_obj.has_next %}
+
+        {% else %}
+            <h5 class="text-muted text-center" > You are updated for now.</h5>
+
+        {% endif %}
     {% if is_paginated %}
+
     <div class="btn-group login rounded" aria-label="Basic example">
         {% if page_obj.has_previous %}
         <a type="button" class="btn glow " href="?page=1">First</a>
@@ -69,8 +75,12 @@
         {% if page_obj.has_next %}
         <a type="button" class="btn glow" href="?page={{page_obj.next_page_number}}">Next</a>
         <a type="button" class="btn glow" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+
+
         {% endif %}
     </div>
+
     {% endif%}
 </div>
+
 {% endblock %}
