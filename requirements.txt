@@ -47,3 +47,4 @@ wrapt==1.12.1
 django-crispy-forms>=1.9.0
 pillow>=7.0
 django-currentuser>=0.5.3
+gunicorn==20.0.4
