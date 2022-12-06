@@ -24,7 +24,7 @@ SECRET_KEY = '#@mgd0_!(vqc!^$qgxv3_m50uq17erqz-3pp62@)@p06pl-pe0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["ask-a-way.up.railway.app"]
 
 # Application definition
 
